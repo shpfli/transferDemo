@@ -1,0 +1,9 @@
+/.gradle/
+/build/
+/bin/
+/gradle/
+/gradlew
+/gradlew.bat
+/transferDemo.zip
+/.classpath
+/.project

@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'jetty'
+version = '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	jcenter()
+	mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+
+    testCompile 'junit:junit:4.12'
+}
+
+//编译时使用UTF-8，解决编译时的乱码问题
+tasks.withType(JavaCompile) { 
+	options.encoding = "UTF-8" 
+}
+
+httpPort = 8080
+stopPort = 9451
+stopKey = "stop"
+
+[jettyRun, jettyRunWar]*.with {
+    contextPath = 'transferCenter'
+}
