@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>A demo of transfer</title>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<style>
+html {
+	height: 80%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+#container {
+	background-color: darkkhaki;
+	width: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	padding: 15px;
+}
+
+.small_container {
+	background-color: #e5eecc;
+	border: 1px solid #000;
+	padding: 15px;
+}
+
+table {
+	border: 2px solid #000
+}
+
+td {
+	border: 1px solid #000
+}
+</style>
+</head>
+<body>
+<h1>转账小测试</h1>
+<section id="container">
+	<section id="leftPane" class="small_container">
+		<table id="accountsTable">
+			<thead>
+				<tr>
+					<th>帐号</th>
+					<th>余额</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</section>
+
+	<section id="rightPane" class="small_container">
+		<form id="transferForm" onsubmit="javascript:onSubmit();">
+			转出帐号：<input type="text" name="fromAccountId" /><br>
+			转入帐号：<input type="text" name="toAccountId" /><br>
+			转账金额：<input type="number" name="amount" /><br>
+			<input type="submit"/>
+		</form>
+	</section>
+</section>
+	
+	
+	
+<script type="text/javascript">
+	$(function() {
+		var url = "queryAll";
+		$.getJSON(url, function(rsp, status) {
+			console.log(rsp);
+			console.log(status);
+			//var result = JSON.stringify(rsp)
+			$.each(rsp,function(i, account){
+				$("#accountsTable tbody").append("<tr><td>"+account.accountId+"</td><td>"+account.amount+"</td></tr>")
+			})
+		})
+	});
+
+	function onSubmit() {
+		var url = "transfer"
+
+		$.ajax({
+			url : url,
+			async : false,
+			data : $('#transferForm').serialize(),
+			success : function(rsp) {
+				alert(rsp.responseMsg);
+				//var result = JSON.stringify(rsp)
+				//alert(result);
+			},
+			error : function(e) {
+				alert(e.responseText);
+				alert("出现异常，转账失败！")
+			}
+		})
+		return false;
+	}
+</script>
+</body>
+</html>

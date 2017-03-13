@@ -1,5 +1,8 @@
 package com.test.transfer.service;
 
+import java.util.Collection;
+
+import com.test.transfer.bean.Account;
 import com.test.transfer.bean.TransferRequest;
 import com.test.transfer.bean.TransferResponse;
 
@@ -8,6 +11,12 @@ import com.test.transfer.bean.TransferResponse;
  *
  */
 public interface TransferService {
+
+	/**
+	 * @return 全部账户信息
+	 */
+	public Collection<Account> queryAll();
+
 	/**
 	 * 转账
 	 * 

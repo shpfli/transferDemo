@@ -1,5 +1,6 @@
 package com.test.transfer.service.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,13 @@ public class TransferServiceImpl implements TransferService {
 		DB_DEMO.put("wangwu", new Account("wangwu", Math.round(Math.random() * 100000)));
 		DB_DEMO.put("zhaoliu", new Account("zhaoliu", Math.round(Math.random() * 100000)));
 		// System.out.println(db);
+	}
+
+	/**
+	 * @return 全部账户信息
+	 */
+	public Collection<Account> queryAll() {
+		return DB_DEMO.values();
 	}
 
 	/**
