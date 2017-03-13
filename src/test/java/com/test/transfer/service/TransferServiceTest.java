@@ -5,6 +5,7 @@ package com.test.transfer.service;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.test.transfer.service.impl.TransferServiceImpl;
 
@@ -13,6 +14,8 @@ import com.test.transfer.service.impl.TransferServiceImpl;
  *
  */
 public class TransferServiceTest {
+	private static AtomicInteger seq = new AtomicInteger(0);
+	
 	/*
 	 * zhangsan帐号初始有：10000000， lisi：0，100个线程同时执行10000次转账，每次转账10元。
 	 */
@@ -21,7 +24,7 @@ public class TransferServiceTest {
 
 		ExecutorService executorService = Executors.newCachedThreadPool();
 		for (int i = 0; i < 100; i++) {
-			executorService.execute(new TransferThread(service));
+			executorService.execute(new TransferThread(service,seq));
 		}
 		executorService.shutdown();
 	}

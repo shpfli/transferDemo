@@ -1,10 +1,19 @@
 package com.test.transfer.service;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.test.transfer.bean.TransferRequest;
 import com.test.transfer.bean.TransferResponse;
 
 public class TransferThread implements Runnable {
 	private TransferService service;
+	private AtomicInteger seq;
+
+	public TransferThread(TransferService service, AtomicInteger seq) {
+		super();
+		this.service = service;
+		this.seq = seq;
+	}
 
 	public TransferThread(TransferService service) {
 		super();
@@ -22,7 +31,7 @@ public class TransferThread implements Runnable {
 				return;
 			}
 		}
-		System.out.println("10000次转账结束！");
+		System.out.println("第"+seq.incrementAndGet()+"个线程10000次转账结束！");
 	}
 
 }
